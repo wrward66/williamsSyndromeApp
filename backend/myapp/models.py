@@ -2,12 +2,12 @@ from django.db import models
 
 # Create your models here.
 MILESTONE_CHOICES = [
-    ('sit', 'Sitting'),
-    ('crawl', 'Crawling'),
-    ('stand', 'Standing'),
-    ('walk', 'Walking'),
-    ('run', 'Running'),
-    ('jump', 'Jumping'),
+    ('sit', 'Sitting without support'),
+    ('stand', 'Standing with assistance'),
+    ('crawl', 'Hands-and-knees crawling'),
+    ('walk', 'Walking with assisstance'),
+    ('standalone', 'Standing without support'),
+    ('walkalone', 'Walking without support'),
 ]
 
 class AgeGroup(models.Model):
@@ -31,6 +31,7 @@ class AgeMilestoneInfo(models.Model):
     age_group = models.ForeignKey(AgeGroup, on_delete=models.CASCADE, related_name='milestones')
     milestone = models.CharField(max_length=10, choices=MILESTONE_CHOICES)
     description = models.TextField(help_text="Description of typical milestone achievement at this age")
+    image = models.ImageField(upload_to='milestone_images/', blank=True, null=True, help_text="Optional image representing the milestone")
 
     def __str__(self):
         return f"{self.age_group.label} - {self.get_milestone_display()}"
