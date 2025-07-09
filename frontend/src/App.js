@@ -7,7 +7,7 @@ export default function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/age/:ageId/milestone/:milestoneId" element={<MilestoneDetailPage />} />
+      <Route path="/milestone/:milestoneId" element={<MilestoneDetailPage />} />
       <Route path="/about" element={<About/>}></Route>
     </Routes>
   );

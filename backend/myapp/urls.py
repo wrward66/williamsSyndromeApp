@@ -1,10 +1,8 @@
 from django.urls import path
-from .views import AgeGroupListAPIView, AgeGroupDetailAPIView, AllMilestonesAPIView, api_root
-
+from .views import api_root, MilestoneListAPIView, MilestoneDetailAPIView
 
 urlpatterns = [
     path('', api_root, name='api-root'),
-    path('age-groups/', AgeGroupListAPIView.as_view(), name='age-group-list'),
-    path('age-groups/<int:id>/', AgeGroupDetailAPIView.as_view(), name='age-group-detail'),
-    path('milestones/', AllMilestonesAPIView.as_view(), name='all-milestones'),
+    path('milestones/', MilestoneListAPIView.as_view(), name='milestone-list'),
+    path('milestones/<int:id>/', MilestoneDetailAPIView.as_view(), name='milestone-detail'),
 ]

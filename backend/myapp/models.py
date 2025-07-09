@@ -1,37 +1,23 @@
 from django.db import models
 
-# Create your models here.
-MILESTONE_CHOICES = [
-    ('sit', 'Sitting without support'),
-    ('stand', 'Standing with assistance'),
-    ('crawl', 'Hands-and-knees crawling'),
-    ('walk', 'Walking with assisstance'),
-    ('standalone', 'Standing without support'),
-    ('walkalone', 'Walking without support'),
-]
+class Milestone(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    description = models.TextField(blank=True)
+    age_range = models.CharField(max_length=50, blank=True)
+    image = models.ImageField(upload_to='milestones/', blank=True, null=True)
+    milestone_display = models.CharField(max_length=255, blank=True)
 
-class AgeGroup(models.Model):
-    """
-    Represents a specific age or age range (e.g., '6 months', '12–18 months').
-    """
-    label = models.CharField(max_length=20, unique=True)  # e.g., '6 months', '12-18 months'
-    age_in_months = models.PositiveIntegerField(help_text="Use the lower bound in months for sorting")
+    def __str__(self):
+        return self.milestone_display or self.milestone
+
+class MilestonePercentile(models.Model):
+    milestone = models.ForeignKey(Milestone, related_name="percentiles", on_delete=models.CASCADE)
+    percentile = models.IntegerField()
+    age_months = models.FloatField()
 
     class Meta:
-        ordering = ['age_in_months']
+        unique_together = ("milestone", "percentile")
+        ordering = ["percentile"]
 
     def __str__(self):
-        return self.label
-
-
-class AgeMilestoneInfo(models.Model):
-    """
-    Links an age group to specific milestone information.
-    """
-    age_group = models.ForeignKey(AgeGroup, on_delete=models.CASCADE, related_name='milestones')
-    milestone = models.CharField(max_length=10, choices=MILESTONE_CHOICES)
-    description = models.TextField(help_text="Description of typical milestone achievement at this age")
-    image = models.ImageField(upload_to='milestone_images/', blank=True, null=True, help_text="Optional image representing the milestone")
-
-    def __str__(self):
-        return f"{self.age_group.label} - {self.get_milestone_display()}"
+        return f"{self.milestone}: {self.percentile}th - {self.age_months} months"

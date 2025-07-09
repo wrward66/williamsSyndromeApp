@@ -1,0 +1,118 @@
+/* Main container styles */
+.about-container {
+  padding: 4rem 1rem;
+  background-color: #FFFDF5; /* Cream color background */
+}
+
+.about-content {
+  max-width: 56rem;
+  margin: 0 auto;
+}
+
+/* Header section */
+.about-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.about-header h1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 1.5rem 0;
+}
+
+.about-subtitle {
+  font-size: 1.25rem;
+  color: #4b5563;
+}
+
+/* Card styles */
+.about-card {
+  background: #FFFDF5; /* Cream color to match container */
+  border-radius: 0.375rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  border: 1px solid #e5e7eb;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.about-card h2,
+.about-card h3 {
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 1rem;
+}
+
+.about-card h2 {
+  font-size: 1.5rem;
+}
+
+.about-card h3 {
+  font-size: 1.25rem;
+}
+
+.about-card p {
+  color: #374151;
+  line-height: 1.625;
+  margin-bottom: 1rem;
+}
+
+/* Grid layout */
+.about-grid {
+  display: grid;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+@media (min-width: 768px) {
+  .about-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* List styles */
+.about-list {
+  color: #374151;
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.about-list li {
+  margin-bottom: 0.5rem;
+}
+
+/* Special blue card */
+.about-blue-card {
+  background-color: #f0f9ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 0.375rem;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+/* Icon styles */
+.about-icon {
+  height: 4rem;
+  width: 4rem;
+  color: #3b82f6;
+  margin: 0 auto 1.5rem;
+}
+
+.about-icon-sm {
+  height: 2rem;
+  width: 2rem;
+  color: #3b82f6;
+  margin-bottom: 1rem;
+}
+
+.about-icon-sm.accent {
+  color: #10b981; /* Tailwind's emerald-500 */
+}
+
+/* Disclaimer */
+.disclaimer p {
+  color: #4b5563;
+  font-size: 0.875rem;
+  line-height: 1.625;
+}

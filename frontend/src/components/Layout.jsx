@@ -1,11 +1,12 @@
 import React from 'react';
 import Header from './Header';
+import '../styles/Layout.css';
 
 const Layout = ({ children }) => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50">
+    <div className="layout-container">
       <Header />
-      <main>{children}</main>
+      <main className="layout-main">{children}</main>
     </div>
   );
 };

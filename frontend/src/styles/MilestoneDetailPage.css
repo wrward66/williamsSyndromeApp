@@ -1,0 +1,122 @@
+/* Container to hold both the details and image side by side */
+.milestone-detail-container {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: flex-start;
+  max-width: 1200px;
+  margin: 0 auto; /* Center the whole container */
+  padding: 20px;
+}
+
+/* Milestone Detail (Left Box) */
+.milestone-detail {
+  flex: 2;
+  padding: 25px;
+  background-color: #FFF8F0; /* Warm cream color */
+  border: 1px solid #E0D6C2; /* Subtle beige border */
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* Soft shadow for depth */
+  max-width: 800px;
+}
+
+/* Image Box (Right) */
+.milestone-image {
+  flex: 1;
+  background-color: #FFF8F0; /* Same cream as milestone detail */
+  padding: 10px;
+  border: 1px solid #E0D6C2;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  max-width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.milestone-image img {
+  max-width: 100%;
+  border-radius: 4px;
+  object-fit: contain;
+}
+
+/* Background for the entire page */
+body {
+  background-color: #F9F5E9; /* Lighter cream for page background */
+  min-height: 100vh;
+  margin: 0;
+}
+
+/* Chart Section */
+.chart-section {
+  background-color: white; /* Keep chart background white for clarity */
+  padding: 15px;
+  border-radius: 6px;
+  margin: 25px 0;
+  border: 1px solid #E0D6C2;
+}
+
+/* Input Section */
+.input-section {
+  background-color: #FFFDF8; /* Slightly off-white */
+  border: 1px solid #E0D6C2;
+  border-radius: 6px;
+  padding: 20px;
+  margin: 25px 0;
+}
+
+/* Text Styles */
+.milestone-title {
+  font-size: 2rem;
+  margin-bottom: 15px;
+  color: #3A3226; /* Dark brown for contrast */
+}
+
+.age-group {
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #5E5343; /* Medium brown */
+}
+
+.milestone-description {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #4A4238; /* Dark gray-brown */
+  margin-bottom: 20px;
+}
+
+/* Button Styling */
+.submit-button {
+  background-color: #E8D5B5; /* Earthy brown */
+  color: #2c2c2c;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+  background-color: #800020; 
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* Result Box */
+.result {
+  background-color: #F0E9DD; /* Light cream */
+  border-left: 4px solid #8B7355; /* Accent border */
+  padding: 15px;
+  margin-top: 15px;
+  border-radius: 0 4px 4px 0;
+}
+
+/* Loading, Error, Not Found messages */
+.loading,
+.error,
+.not-found {
+  text-align: center;
+  font-size: 1.2rem;
+  margin: 30px 0;
+  color: #5E5343;
+}

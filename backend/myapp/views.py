@@ -1,30 +1,41 @@
-from django.shortcuts import render
-from rest_framework import generics
-from .models import AgeGroup, AgeMilestoneInfo
-from .serializers import AgeGroupSerializer, AgeMilestoneInfoSerializer
-from rest_framework.response import Response
+from django.shortcuts import get_object_or_404
+from rest_framework import generics, viewsets, status
 from rest_framework.decorators import api_view
+from rest_framework.response import Response
 from rest_framework.reverse import reverse
+from rest_framework.views import APIView
+
+from .models import Milestone
+from .serializers import MilestoneSerializer, MilestoneDetailSerializer
+
 
 @api_view(['GET'])
 def api_root(request, format=None):
     return Response({
-        'age-groups': reverse('age-group-list', request=request, format=format),
-        'all-milestones': reverse('all-milestones', request=request, format=format),
-        'age-group-detail (example)': reverse('age-group-detail', args=[1], request=request, format=format),
+        'milestones': reverse('milestone-list', request=request, format=format),
     })
-# List all age groups
-class AgeGroupListAPIView(generics.ListAPIView):
-    queryset = AgeGroup.objects.all()
-    serializer_class = AgeGroupSerializer
 
-# Retrieve milestone details for one age group
-class AgeGroupDetailAPIView(generics.RetrieveAPIView):
-    queryset = AgeGroup.objects.all()
-    serializer_class = AgeGroupSerializer
+
+# List all milestones (basic info)
+
+class MilestoneListAPIView(APIView):
+    def get(self, request):
+        milestones = Milestone.objects.prefetch_related('percentiles').all()
+        serializer = MilestoneSerializer(milestones, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+# Detail view of a single milestone with its percentile data
+class MilestoneDetailAPIView(generics.RetrieveAPIView):
+    queryset = Milestone.objects.all()
+    serializer_class = MilestoneDetailSerializer
     lookup_field = 'id'
 
-# Optional: list all milestone entries (flat)
-class AllMilestonesAPIView(generics.ListAPIView):
-    queryset = AgeMilestoneInfo.objects.select_related('age_group')
-    serializer_class = AgeMilestoneInfoSerializer
+
+# Optional: viewset if you use routers
+class MilestoneViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Milestone.objects.all()
+
+    def get_serializer_class(self):
+        if self.action == 'retrieve':
+            return MilestoneDetailSerializer
+        return MilestoneSerializer

@@ -1,16 +1,30 @@
 from rest_framework import serializers
-from .models import AgeGroup, AgeMilestoneInfo
+from .models import Milestone, MilestonePercentile
 
-class AgeMilestoneInfoSerializer(serializers.ModelSerializer):
-    milestone_display = serializers.CharField(source='get_milestone_display', read_only=True)
+class MilestonePercentileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MilestonePercentile
+        fields = ['percentile', 'age_months']
+
+class MilestoneSerializer(serializers.ModelSerializer):
+    percentiles = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = Milestone
+        fields = ['id', 'name', 'description', 'age_range', 
+                'image', 'milestone_display', 'percentiles']
+    def get_percentiles(self, obj):
+        percentiles = obj.percentiles.all().order_by('percentile')
+        return [
+            {
+                'percentile': p.percentile,
+                'age_months': p.age_months
+            } for p in percentiles
+        ]
+
+class MilestoneDetailSerializer(serializers.ModelSerializer):
+    percentiles = MilestonePercentileSerializer(many=True, read_only=True)
 
     class Meta:
-        model = AgeMilestoneInfo
-        fields = ['id', 'milestone', 'milestone_display', 'description', 'image']
-
-class AgeGroupSerializer(serializers.ModelSerializer):
-    milestones = AgeMilestoneInfoSerializer(many=True, read_only=True)
-
-    class Meta:
-        model = AgeGroup
-        fields = ['id', 'label', 'age_in_months', 'milestones']
+        model = Milestone
+        fields = ['id', 'milestone_display', 'description', 'image', 'age_range', 'percentiles']

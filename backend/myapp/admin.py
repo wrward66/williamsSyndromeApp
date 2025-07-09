@@ -1,20 +1,14 @@
 from django.contrib import admin
-from .models import AgeGroup, AgeMilestoneInfo
+from .models import Milestone, MilestonePercentile
 
-class AgeMilestoneInfoInline(admin.TabularInline):
-    model = AgeMilestoneInfo
-    extra = 1  # Number of blank inlines shown
-    fields = ('milestone', 'description', 'image')
-    ordering = ('milestone',)
+class MilestonePercentileInline(admin.TabularInline):
+    model = MilestonePercentile
+    extra = 1
+    fields = ('percentile', 'age_months')
+    ordering = ('percentile',)
 
-@admin.register(AgeGroup)
-class AgeGroupAdmin(admin.ModelAdmin):
-    list_display = ('label', 'age_in_months')
-    ordering = ('age_in_months',)
-    inlines = [AgeMilestoneInfoInline]
-
-@admin.register(AgeMilestoneInfo)
-class AgeMilestoneInfoAdmin(admin.ModelAdmin):
-    list_display = ('age_group', 'milestone', 'get_milestone_display')
-    list_filter = ('milestone', 'age_group')
-    search_fields = ('description',)
+@admin.register(Milestone)
+class MilestoneAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+    search_fields = ('name', 'description')
+    inlines = [MilestonePercentileInline]
