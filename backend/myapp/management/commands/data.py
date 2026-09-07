@@ -212,4 +212,25 @@ class Command(BaseCommand):
 
 
 
+        # Approved webpage values (25th, median, 75th percentiles) from the
+        # supervisor-approved content document.
+        approved = {
+            'sitting_without_support': ('7-12 months', (7, 9.5, 12), 'Sitting Without Support'),
+            'hands_and_knees_crawling': ('11-18 months', (11, 14, 18), 'Hands and knees crawling'),
+            'standing_with_assistance': ('11-18 months', (11, 14, 18), 'Standing with support'),
+            'walking_with_assistance': ('13-21 months', (13, 17, 21), 'Walking with support'),
+            'standing alone': ('17-25 months', (17, 21, 25), 'Standing without support'),
+            'walking_without_support': ('19-29 months', (19, 25, 29), 'Walking without support'),
+        }
+        for name, (age_range, ages, display) in approved.items():
+            milestone = Milestone.objects.filter(name=name).first()
+            if milestone:
+                milestone.age_range = age_range
+                milestone.milestone_display = display
+                milestone.save(update_fields=['age_range', 'milestone_display'])
+                for percentile, age in zip((25, 50, 75), ages):
+                    MilestonePercentile.objects.update_or_create(
+                        milestone=milestone, percentile=percentile,
+                        defaults={'age_months': age})
+
         self.stdout.write(self.style.SUCCESS(f'Successfully seeded data'))

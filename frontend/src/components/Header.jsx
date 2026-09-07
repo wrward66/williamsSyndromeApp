@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/Header.css';
 
@@ -10,20 +9,20 @@ const Header = () => {
           {/* Left side (Home) */}
           <div className="left-side">
             <Link to="/" className="home-link">
-              Williams Syndrome
+              <><span>Williams syndrome</span><small>Motor Development</small></>
             </Link>
           </div>
 
           {/* Right side (Navigation) */}
           <nav className="nav">
-            <Link to="/" className="home-link">
+            <Link to="/" className="nav-link">
               Home
             </Link>
-            <Link to="/about" className="nav-link">
-              About
+            <span>/</span><Link to="/milestones" className="nav-link">
+              Milestones
             </Link>
-            <Link to="/contact" className="nav-link">
-              Contact
+            <span>/</span><Link to="/about" className="nav-link">
+              About this resource
             </Link>
           </nav>
         </div>

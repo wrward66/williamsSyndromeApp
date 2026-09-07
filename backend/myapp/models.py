@@ -8,7 +8,7 @@ class Milestone(models.Model):
     milestone_display = models.CharField(max_length=255, blank=True)
 
     def __str__(self):
-        return self.milestone_display or self.milestone
+        return self.milestone_display or self.name
 
 class MilestonePercentile(models.Model):
     milestone = models.ForeignKey(Milestone, related_name="percentiles", on_delete=models.CASCADE)
