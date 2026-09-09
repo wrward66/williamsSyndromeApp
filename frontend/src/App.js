@@ -9,7 +9,7 @@ export default function App() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/milestones" element={<Milestones />} />
-      <Route path="/milestone/:milestoneId" element={<MilestoneDetailPage />} />
+      <Route path="/milestone/:id" element={<MilestoneDetailPage />} />
       <Route path="/about" element={<About/>}></Route>
     </Routes>
   );
