@@ -57,6 +57,15 @@ ROOT_URLCONF = 'backend.urls'
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # React default port
+    "http://127.0.0.1:3000",
+]
+
+# create-react-app picks the next free port (3001, 3002, ...) if 3000 is
+# already in use by something else on the machine, so allow any local port
+# during development rather than hard-coding a single one.
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^http://localhost:\d+$",
+    r"^http://127\.0\.0\.1:\d+$",
 ]
 
 TEMPLATES = [
